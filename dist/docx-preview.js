@@ -1838,15 +1838,12 @@
                 switch (c.localName) {
                     case "r":
                         result.children.push(this.parseRun(c, result));
-                        console.log("add hyperlink run");
                         break;
                     case "commentRangeStart":
                         result.children.push(new WmlCommentRangeStart(globalXmlParser.attr(c, "id")));
-                        console.log("add hyperlink comment start");
                         break;
                     case "commentRangeEnd":
                         result.children.push(new WmlCommentRangeEnd(globalXmlParser.attr(c, "id")));
-                        console.log("add hyperlink comment end");
                         break;
                 }
             });
