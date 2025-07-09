@@ -605,11 +605,9 @@ export class DocumentParser {
 					break;
 				case "commentRangeStart":
 					result.children.push(new WmlCommentRangeStart(xml.attr(c, "id")));
-					console.log("add comment start")
 					break;
 				case "commentRangeEnd":
 					result.children.push(new WmlCommentRangeEnd(xml.attr(c, "id")));
-					console.log("add comment end")
 					break;
 			}
 		});
