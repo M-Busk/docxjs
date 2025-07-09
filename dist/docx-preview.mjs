@@ -99,22 +99,14 @@ function clamp(val, min, max) {
 }
 
 const ns$1 = {
-    wordml: "http://schemas.openxmlformats.org/wordprocessingml/2006/main",
-    drawingml: "http://schemas.openxmlformats.org/drawingml/2006/main",
-    picture: "http://schemas.openxmlformats.org/drawingml/2006/picture",
-    compatibility: "http://schemas.openxmlformats.org/markup-compatibility/2006",
-    math: "http://schemas.openxmlformats.org/officeDocument/2006/math"
-};
+    wordml: "http://schemas.openxmlformats.org/wordprocessingml/2006/main"};
 const LengthUsage = {
     Dxa: { mul: 0.05, unit: "pt" },
     Emu: { mul: 1 / 12700, unit: "pt" },
     FontSize: { mul: 0.5, unit: "pt" },
     Border: { mul: 0.125, unit: "pt", min: 0.25, max: 12 },
     Point: { mul: 1, unit: "pt" },
-    Percent: { mul: 0.02, unit: "%" },
-    LineHeight: { mul: 1 / 240, unit: "" },
-    VmlEmu: { mul: 1 / 12700, unit: "" },
-};
+    Percent: { mul: 0.02, unit: "%" }};
 function convertLength(val, usage = LengthUsage.Dxa) {
     if (val == null || /.+(p[xt]|[%])$/.test(val)) {
         return val;
@@ -1842,6 +1834,15 @@ class DocumentParser {
             switch (c.localName) {
                 case "r":
                     result.children.push(this.parseRun(c, result));
+                    console.log("add hyperlink run");
+                    break;
+                case "commentRangeStart":
+                    result.children.push(new WmlCommentRangeStart(globalXmlParser.attr(c, "id")));
+                    console.log("add hyperlink comment start");
+                    break;
+                case "commentRangeEnd":
+                    result.children.push(new WmlCommentRangeEnd(globalXmlParser.attr(c, "id")));
+                    console.log("add hyperlink comment end");
                     break;
             }
         });
